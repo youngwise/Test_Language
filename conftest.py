@@ -3,13 +3,20 @@ import pytest
 from selenium.webdriver.chrome.options import Options
 
 
+# обработчик, который считывает из командной строки параметр language
+# handler that reads the language parameter from the command line
 def pytest_addoption(parser):
     parser.addoption('--language', action='store', default=None, help='Choose language')
 
+
+# реализация логики запуска браузера с указанным языком пользователя
+# implementation of the browser launch logic with the specified user language
 @pytest.fixture(scope='function')
 def browser(request):
     language = request.config.getoption('language')
 
+    # проверка, что параметр language указан
+    # checking that the language parameter is specified
     if language is None:
         raise pytest.UsageError('--language should be don\'t None!')
 
